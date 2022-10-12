@@ -74,32 +74,6 @@ def osgb_to_xy(coords):
     northing = y_maj*500000 + y_min*100000 + y_micro
     return (easting, northing)
 
-def test():
-    assert xy_to_osgb(432574, 332567, 1000) == 'SK 32 32'
-    assert xy_to_osgb(236336, 682945, 1000) == 'NS 36 82'
-    assert xy_to_osgb(392876, 494743, 1000) == 'SD 92 94'
-    assert xy_to_osgb(472945, 103830, 1000) == 'SU 72 03'
-
-    assert xy_to_osgb(432574, 332567, 100) == 'SK 325 325'
-    assert xy_to_osgb(236336, 682945, 100) == 'NS 363 829'
-    assert xy_to_osgb(392876, 494743, 100) == 'SD 928 947'
-    assert xy_to_osgb(472945, 103830, 100) == 'SU 729 038'
-
-    assert xy_to_osgb(432574, 332567, 10) == 'SK 3257 3256'
-    assert xy_to_osgb(236336, 682945, 10) == 'NS 3633 8294'
-    assert xy_to_osgb(392876, 494743, 10) == 'SD 9287 9474'
-    assert xy_to_osgb(472945, 103830, 10) == 'SU 7294 0383'
-
-    assert xy_to_osgb(432574, 332567, 1) == 'SK 32574 32567'
-    assert xy_to_osgb(236336, 682945, 1) == 'NS 36336 82945'
-    assert xy_to_osgb(392876, 494743, 1) == 'SD 92876 94743'
-    assert xy_to_osgb(472945, 103830, 1) == 'SU 72945 03830'
-
-    assert osgb_to_xy('SK 32    32') == (432000, 332000)
-    assert osgb_to_xy('SK 325   325') == (432500, 332500)
-    assert osgb_to_xy('SK 3257  3256') == (432570, 332560)
-    assert osgb_to_xy('SK 32574 32567') == (432574, 332567)
-
 MAJOR_LETTERS = {0: {0: 'S', 1: 'N', 2: 'H'},
                  1: {0: 'T', 1: 'O'}}
 MINOR_LETTERS = {0: {0: 'V', 1: 'Q', 2: 'L', 3: 'F', 4: 'A'},
@@ -124,7 +98,7 @@ def format_grid_reference(text):
 
 
 
-main_dir = "/mnt/e0fdda2b-8695-46fc-b7ef-788e3852324c/DataG7/Working_HDD/GeoreferenceOSMapTiles"
+main_dir = "/OSMapTiles"
 # Data are in "1_25K (All UK)"
 # Output folder is "1_25K (All UK) Georeferenced"
 
