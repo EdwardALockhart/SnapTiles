@@ -15,45 +15,6 @@ def inverse_mapping(letters_dict):
             inv[letter] = (x, y)
     return inv
 
-def xy_to_osgb(easting, northing, precision = 1):
-    if precision not in [100000, 10000, 1000, 100, 10, 1]:
-        raise Exception('Precision of ' + str(precision) + ' is not supported')
-
-    try:
-        x_idx = easting // 500000
-        y_idx = northing // 500000
-        major_letter = MAJOR_LETTERS[x_idx][y_idx]
-
-        macro_easting = easting % 500000
-        macro_northing = northing % 500000
-        macro_x_idx = macro_easting // 100000
-        macro_y_idx = macro_northing // 100000
-        minor_letter = MINOR_LETTERS[macro_x_idx][macro_y_idx]
-    except (ValueError, IndexError, KeyError, AssertionError):
-        raise GridException('Out of range')
-
-    micro_easting = macro_easting % 100000
-    micro_northing = macro_northing % 100000
-
-    ref_x = micro_easting // precision
-    ref_y = micro_northing // precision
-
-    coord_width = 0
-    if precision == 10000:
-        coord_width = 1
-    elif precision == 1000:
-        coord_width = 2
-    if precision == 100:
-        coord_width = 3
-    elif precision == 10:
-        coord_width = 4
-    elif precision == 1:
-        coord_width = 5
-
-    format_string = (r'%s%s %0' + str(coord_width) + r'd %0' +
-                     str(coord_width) + r'd') if precision else r'%s%s %0'
-    return format_string % (major_letter, minor_letter, ref_x, ref_y)
-
 def osgb_to_xy(coords):
     try:
         tile, ref_x, ref_y = coords.split()
@@ -101,8 +62,6 @@ def format_grid_reference(text):
 main_dir = "/OSMapTiles"
 # Data are in "1_25K (All UK)"
 # Output folder is "1_25K (All UK) Georeferenced"
-
-
 
 for file in os.listdir(os.path.join(main_dir, "1_25K (All UK)")):
     
